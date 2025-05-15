@@ -47,4 +47,7 @@ public:
     const T* getData() const;
 
     void push(const T& value);
+
+    bool isEmpty() const;
+    void clear();
 };

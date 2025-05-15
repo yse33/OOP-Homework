@@ -133,3 +133,13 @@ void MyVector<T>::push(const T& value) {
     }
     data[size++] = value;
 }
+
+template<typename T>
+bool MyVector<T>::isEmpty() const {
+    return size == 0;
+}
+
+template<typename T>
+void MyVector<T>::clear() {
+    free();
+}

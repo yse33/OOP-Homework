@@ -100,6 +100,26 @@ const char* MyString::getString() const {
     return str ? str : "";
 }
 
+MyString MyString::operator+(const MyString& other) const {
+    MyString result;
+    result.size = size + other.size;
+    result.capacity = result.size + 1;
+    result.str = new char[result.capacity];
+    if (str) strcpy(result.str, str);
+    if (other.str) strcat(result.str, other.str);
+    return result;
+}
+
+MyString MyString::operator+(const char* other) const {
+    MyString result;
+    result.size = size + strlen(other);
+    result.capacity = result.size + 1;
+    result.str = new char[result.capacity];
+    if (str) strcpy(result.str, str);
+    if (other) strcat(result.str, other);
+    return result;
+}
+
 char& MyString::operator[](const size_t index) {
     if (index >= size) throw out_of_range("Index out of range");
     return str[index];

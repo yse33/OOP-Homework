@@ -31,6 +31,8 @@ public:
     friend ostream& operator<<(ostream& os, const MyString& myString);
     friend istream& operator>>(istream& is, MyString& myString);
 
+    MyString operator+(const MyString& other) const;
+    MyString operator+(const char* other) const;
     char& operator[](size_t index);
     char operator[](size_t index) const;
 
