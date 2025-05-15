@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 using namespace std;
 
@@ -26,14 +27,13 @@ public:
     ~MyString();
 
     friend ostream& operator<<(ostream& os, const MyString& myString);
-
     friend istream& operator>>(istream& is, MyString& myString);
-
-    size_t getLength() const;
-    const char* getString() const;
 
     char& operator[](size_t index);
     char operator[](size_t index) const;
+
+    size_t getLength() const;
+    const char* getString() const;
 };
 
 bool operator==(const MyString& lhs, const MyString& rhs);
