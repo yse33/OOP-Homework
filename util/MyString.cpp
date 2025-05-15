@@ -1,3 +1,5 @@
+// Yasen Angelov 7MI0600465
+
 #include "MyString.h"
 
 #include <cstring>
