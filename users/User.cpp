@@ -9,23 +9,21 @@ User::User(MyString firstName, MyString lastName, MyString password)
     id = ++userCount;
 }
 
-void User::receiveMessage(const Message& message) {
-    messages.push(message);
+int User::getId() const {
+    return id;
 }
 
-void User::showInbox() {
-    if (messages.isEmpty()) {
-        cout << "Inbox is empty!" << endl;
-        return;
-    }
-    for (size_t i = 0; i < messages.getSize(); i++) {
-        cout << messages[i] << endl;
-    }
+MyString User::getFullName() const {
+    return firstName + " " + lastName;
 }
 
-void User::clearInbox() {
-    messages.clear();
-    cout << "Inbox cleared!" << endl;
+int User::getCourseId(const MyString& courseName) {
+    for (int i = 0; i < courses.getSize(); ++i) {
+        if (courses[i]->getName() == courseName) {
+            return i;
+        }
+    }
+    return -1;
 }
 
 void User::changePassword(const MyString& currPassword, const MyString& newPassword) {
@@ -37,12 +35,46 @@ void User::changePassword(const MyString& currPassword, const MyString& newPassw
     cout << "Password changed successfully!" << endl;
 }
 
-int User::getId() const {
-    return id;
+void User::addCourse(const Course& course) {
+    const int courseId = getCourseId(course.getName());
+    if (courseId != -1) cout << "You are already enrolled in this course!" << endl;
+    else courses.push(course);
 }
 
-MyString User::getFullName() const {
-    return firstName + " " + lastName;
+void User::removeCourse(const Course& course) {
+    const int courseId = getCourseId(course.getName());
+    if (courseId == -1) cout << "Course not found!" << endl;
+    else courses.remove(courseId);
+}
+
+void User::viewCourses() const {
+    if (courses.isEmpty()) {
+        cout << "No courses enrolled!" << endl;
+        return;
+    }
+    cout << "Your courses:" << endl;
+    for (size_t i = 0; i < courses.getSize(); ++i) {
+        cout << courses[i]->getName() << endl;
+    }
+}
+
+void User::receiveMessage(const Message& message) {
+    messages.push(message);
+}
+
+void User::showInbox() {
+    if (messages.isEmpty()) {
+        cout << "No messages to show!" << endl;
+        return;
+    }
+    for (size_t i = 0; i < messages.getSize(); i++) {
+        cout << messages[i] << endl;
+    }
+}
+
+void User::clearInbox() {
+    messages.clear();
+    cout << "Inbox cleared!" << endl;
 }
 
 ostream& operator<<(ostream& os, const User& user) {
